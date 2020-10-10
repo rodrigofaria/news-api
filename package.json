@@ -1,0 +1,31 @@
+{
+  "name": "news-api",
+  "version": "0.0.1",
+  "description": "This project used to be a simple API to store and retrieve news from database",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigofaria/news-api.git"
+  },
+  "keywords": [
+    "node",
+    "koa"
+  ],
+  "author": "Rodrigo Faria <rodrigolfsi@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigofaria/news-api/issues"
+  },
+  "homepage": "https://github.com/rodrigofaria/news-api#readme",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "koa-router": "^9.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
