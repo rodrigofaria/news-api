@@ -24,8 +24,23 @@ const createUserUUID = async ctx => {
   })
 }
 
-const saveNews = ctx => {
-  ctx.body = 'Save new message'
+const saveNews = async ctx => {
+  const { rows } = await database.query('select id from project where uuid = $1', [ctx.params.uuid])
+  if (rows.length === 0) {
+    ctx.throw(404)
+  }
+
+  await database.query('insert into posts(project_id, post) values ($1, $2)', [rows[0].id, ctx.request.body.post])
+  .then(() => {
+    ctx.body = {
+      post: ctx.request.body.post
+    }
+    ctx.status = 201
+
+  }).catch(error => {
+    ctx.body = error
+    ctx.status = 500
+  })
 }
 
 const listNews = ctx => {
@@ -36,7 +51,7 @@ const getUUID = async () => {
   const maxAttempts = 10
   for (let i = 0; i < maxAttempts; i++) {
     const uuid = uuid4()
-    const { rows } = await database.query('select * from project where uuid = $1::text', [uuid])
+    const { rows } = await database.query('select * from project where uuid = $1', [uuid])
 
     if (rows.length === 0) {
       return uuid
