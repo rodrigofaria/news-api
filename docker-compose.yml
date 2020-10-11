@@ -1,0 +1,32 @@
+version: '3.7'
+
+services: 
+  api:
+    image: node:erbium-alpine
+    depends_on: 
+      - postgres
+    command: npm run dev
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    networks: 
+      my-network:
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: message_api
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abc123
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/postgres/db.sql:/docker-entrypoint-initdb.d/init.sql  
+    networks: 
+      my-network:
+
+networks: 
+  my-network: 
+    name: my-network
