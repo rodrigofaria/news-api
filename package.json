@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/rodrigofaria/news-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-router": "^9.4.0",
