@@ -19,10 +19,7 @@ const createUserUUID = async ctx => {
 }
 
 const saveNews = async ctx => {
-  const { rows } = await database.query('select uuid from project where uuid = $1', [ctx.params.uuid])
-  if (rows.length === 0) {
-    ctx.throw(404)
-  }
+  await existUUID(ctx)
 
   await database.query('insert into posts(project_uuid, post) values ($1, $2)', [ctx.params.uuid, ctx.request.body.post])
   .then(() => {
@@ -37,8 +34,18 @@ const saveNews = async ctx => {
   })
 }
 
-const listNews = ctx => {
-  ctx.body = 'List news'
+const listNews = async ctx => {
+  await existUUID(ctx)
+
+  const { rows } = await database.query('select post from posts where project_uuid = $1', [ctx.params.uuid])
+  ctx.body = rows
+}
+
+const existUUID = async ctx => {
+  const { rows } = await database.query('select uuid from project where uuid = $1', [ctx.params.uuid])
+  if (rows.length === 0) {
+    ctx.throw(404)
+  }
 }
 
 module.exports = {
