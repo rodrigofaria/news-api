@@ -2,7 +2,7 @@ console.log('start print variables')
 const user = process.env.DATABASE_USER | 'postgres'
 console.log('user: ', user)
 
-const password = env.DATABASE_PASSWORD | 'abc123'
+const password = process.env.DATABASE_PASSWORD | 'abc123'
 console.log('password: ', password)
 
 console.log('end print variables')
