@@ -1,19 +1,20 @@
 console.log('start print variables')
 const user = process.env.DATABASE_USER | 'postgres'
-console.log('user: ', user)
+console.log('user: ' + user)
 
 const password = process.env.DATABASE_PASSWORD | 'abc123'
 console.log('password: ', password)
 
 console.log('env:::%j', process.env)
-console.log('env.port::: ' + process.env.port)
+console.log('env.DATABASE_PORT::: ' + process.env.DATABASE_PORT)
+console.log('env.DATABASE_USER::: ' + process.env.DATABASE_USER)
 
 console.log('end print variables')
 
 module.exports = {
-  username: process.env.DATABASE_USER | 'postgres',
-  password: process.env.DATABASE_PASSWORD | 'abc123',
-  database: process.env.DATABASE_NAME | 'message_api',
-  host: process.env.DATABASE_HOST | 'postgres',
+  username: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  host: process.env.DATABASE_HOST,
   dialect: 'postgres'
 }
