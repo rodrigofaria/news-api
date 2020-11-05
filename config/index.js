@@ -5,6 +5,9 @@ console.log('user: ', user)
 const password = process.env.DATABASE_PASSWORD | 'abc123'
 console.log('password: ', password)
 
+console.log('env:::%j', process.env)
+console.log('env.port::: ' + process.env.port)
+
 console.log('end print variables')
 
 module.exports = {
