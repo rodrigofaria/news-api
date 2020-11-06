@@ -1,44 +1,34 @@
-const { post } = require('../models/index')
+const postService = require('../services/post.service')
+const projectService = require('../services/project.service')
 
 const listAll = async ctx => {
-  existUUID(ctx)
-  return await post.findAll()
-    .then(items => {
-      ctx.body = items  
-    })
+  const exist = await projectService.existUUID(ctx)
+  if (!exist) {
+    ctx.throw(404, 'invalid uuid');
+  }
+
+  return await postService.listAll(ctx).then(items => {
+    ctx.body = items
+  }).catch(err => {
+    ctx.body = err
+    ctx.status = 500
+  })
 }
 
 const save = async ctx => {
-  existUUID(ctx).then(exist => {
-    console.log(exist)
-    if (exist) {
-      post.create({
-        project_uuid: ctx.params.uuid,
-        post: ctx.request.body.post
-      }).then(item => {
-        ctx.body = item
-        ctx.status = 201
-      }).catch(err => {
-        ctx.body = err
-        ctx.status = 500
-      })
-    } else {
-      console.log('rodrigo')
-      ctx.status = 404
-    }
-  })
-}
-const existUUID = async ctx => {
-  return await post.findAll({
-    where: {
-      project_uuid: ctx.params.uuid
-    }
-  }).then(item => {
-    if (item.length === 0) {
-      return false
-    }
-    return true
-  })
+  const exist = await projectService.existUUID(ctx)
+  if (!exist) {
+    ctx.throw(404, 'invalid uuid');
+  }
+
+  return await postService.save(ctx)
+    .then(item => {
+      ctx.body = item
+      ctx.status = 201
+    }).catch(err => {
+      ctx.body = err
+      ctx.status = 500
+    })
 }
 
 module.exports = {
