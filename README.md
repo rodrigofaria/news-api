@@ -20,7 +20,7 @@ create table project (
   name varchar(50) not null
 );
 
-create table posts (
+create table post (
   id serial primary key,
   project_uuid varchar(40) not null,
   post varchar(200) not null,
@@ -48,7 +48,6 @@ The payload must be:
     }
 
 
-
 ### Save New Post
 
 ```
@@ -66,4 +65,10 @@ The payload must be:
 
 ```
 GET localhost:3000/api/v1/news/:uuid
+```
+
+### Delete Post
+
+```
+DELETE localhost:3000/api/v1/news/:uuid/:post_id
 ```
