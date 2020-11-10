@@ -31,7 +31,29 @@ const save = async ctx => {
     })
 }
 
+const deletePost = async ctx => {
+  const existProject = await projectService.existUUID(ctx)
+  if (!existProject) {
+    ctx.throw(404, 'invalid uuid');
+  }
+
+  const existPost = await postService.existPostId(ctx)
+  if (!existPost) {
+    ctx.throw(404, 'invalid post id');
+  }
+
+  return await postService.deletePost(ctx)
+    .then(item => {
+      ctx.body = item
+      ctx.status = 200
+    }).catch(err => {
+      ctx.body = err
+      ctx.status = 500
+    })
+}
+
 module.exports = {
   listAll,
-  save
+  save,
+  deletePost
 }

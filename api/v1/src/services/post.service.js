@@ -21,7 +21,30 @@ const save = async ctx => {
   })
 }
 
+const deletePost = async ctx => {
+  return await post.findAll({
+    where: {
+      id: ctx.params.post_id
+    }
+  }).then(item => {
+    item[0].destroy()
+    return item[0]
+  })
+}
+
+const existPostId = async ctx => {
+  return await post.findAll({
+    where: {
+      id: ctx.params.post_id
+    }
+  }).then(item => {
+    return item.length > 0
+  })
+}
+
 module.exports = {
   listAll,
-  save
+  save,
+  deletePost,
+  existPostId
 }

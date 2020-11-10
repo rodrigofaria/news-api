@@ -7,5 +7,6 @@ const router = new KoaRouter({
 
 router.post('/news/:uuid', postController.save)
 router.get('/news/:uuid', postController.listAll)
+router.delete('/news/:uuid/:post_id', postController.deletePost)
 
 module.exports = router
