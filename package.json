@@ -2,9 +2,9 @@
   "name": "news-api",
   "version": "0.0.1",
   "description": "This project used to be a simple API to store and retrieve news from database",
-  "main": "index.js",
+  "main": "./api/v1/src/server.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon ./api/v1/src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

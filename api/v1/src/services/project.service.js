@@ -8,14 +8,23 @@ const save = async ctx => {
     uuid: uuid,
     name: ctx.request.body.projectName
   }).then(item => {
-    ctx.body = item
-    ctx.status = 201
+    return item
   }).catch(err => {
-    ctx.body = err
-    ctx.status = 500
+    ctx.throw(500, err.message)
+  })
+}
+
+const existUUID = async ctx => {
+  return await project.findAll({
+    where: {
+      uuid: ctx.params.uuid
+    }
+  }).then(item => {
+    return item.length > 0
   })
 }
 
 module.exports = {
+  existUUID,
   save,
 }
