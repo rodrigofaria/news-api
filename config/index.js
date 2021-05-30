@@ -4,5 +4,8 @@ module.exports = {
   database: process.env.DATABASE_NAME,
   host: process.env.DATABASE_HOST,
   dialect: 'postgres',
-  ssl: true
+  ssl: true,
+  dialectOptions: {
+    ssl: true
+  }
 }
